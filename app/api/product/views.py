@@ -2,7 +2,7 @@ from typing import List
 from fastapi import APIRouter, status
 from fastapi.params import Depends
 from .schemas import ProductSchema, ShowProductSchema
-from sqlalchemy.orm import Session, query
+from sqlalchemy.orm import Session
 from app.db.db import get_db
 from app.models.models import Product
 
