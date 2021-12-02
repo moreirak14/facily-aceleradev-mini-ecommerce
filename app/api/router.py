@@ -3,12 +3,14 @@ from .product.views import router as product_router
 from .suppliers.views import router as supplier_router
 from .categorie.views import router as categorie_router
 from .payment_methods.views import router as payment_methods_router
+from .product_discounts.views import router as payment_discounts
 
 
 router = APIRouter()
 
 
-router.include_router(product_router, prefix='/product') # --> prefix adiciona o /product na rota @app.router('')
-router.include_router(supplier_router, prefix='/supplier')
-router.include_router(categorie_router, prefix='/categorie')
-router.include_router(payment_methods_router, prefix='/payment_methods')
+router.include_router(product_router, prefix='/product', tags=['product']) # --> prefix adiciona o /product na rota @app.router('')
+router.include_router(supplier_router, prefix='/supplier', tags=['supplier']) # --> tags=[] quebra por nome as requisicoes na app
+router.include_router(categorie_router, prefix='/categorie', tags=['categorie'])
+router.include_router(payment_methods_router, prefix='/payment_methods', tags=['payment_methods'])
+router.include_router(payment_discounts, prefix='/payment_discounts', tags=['payment_discounts'])

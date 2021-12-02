@@ -1,33 +1,29 @@
 from typing import List
 from fastapi import APIRouter, status
 from .schemas import CategorieSchema, ShowCategorieSchema
-from sqlalchemy.orm import Session
 from fastapi.params import Depends
-from app.db.db import get_db
 from app.models.models import Categorie
+from app.repositories.categorie_repository import CategorieRepository
 
 
 router = APIRouter()
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
-def create(categorie: CategorieSchema, db: Session = Depends(get_db)):
-    db.add(Categorie(**categorie.dict()))
-    db.commit()
+def create(categorie: CategorieSchema, repository: CategorieRepository = Depends()):
+    repository.create(Categorie(**categorie.dict()))
 
 
 @router.get('/', response_model=List[ShowCategorieSchema])
-def index(db: Session = Depends(get_db)):
-    return db.query(Categorie).all()
+def index(repository: CategorieRepository = Depends()):
+    return repository.get_all()
 
 
 @router.put('/{id}')
-def update(id: int, categorie: CategorieSchema, db: Session = Depends(get_db)):
-    query = db.query(Categorie).filter_by(id=id)
-    query.update(categorie.dict())
-    db.commit()
+def update(id: int, categorie: CategorieSchema, repository: CategorieRepository = Depends()):
+    repository.update(id, categorie.dict())
 
 
 @router.get('/{id}', response_model=ShowCategorieSchema)
-def show(id: int, db: Session = Depends(get_db)):
-    return db.query(Categorie).filter_by(id=id).first()
+def show(id: int, repository: CategorieRepository = Depends()):
+    return repository.get_by_id(id)

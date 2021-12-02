@@ -37,6 +37,18 @@ class Product(Base):
     image = Column(String(255))
     visible = Column(Boolean, default=True)
     categorie_id = Column(Integer, ForeignKey('categories.id')) # --> relacionamento com categoria
-    categorie = relationship(Categorie) # --> acesso a classa Categorie
+    categorie = relationship(Categorie) # --> acesso a instancia Categorie via um atributo
     supplier_id = Column(Integer, ForeignKey('suppliers.id'))
     supplier = relationship(Supplier)
+
+
+class PaymentDiscount(Base):
+    __tablename__ = 'payment_discounts'
+
+    id = Column(Integer, primary_key=True)
+    mode = Column(String(45))
+    value = Column(Float(10, 2))
+    product_id = Column(Integer, ForeignKey('products.id'))
+    product = relationship(Product)
+    payment_methods_id = Column(Integer, ForeignKey('payment_methods.id'))
+    payment_methods = relationship(PaymentMethod)

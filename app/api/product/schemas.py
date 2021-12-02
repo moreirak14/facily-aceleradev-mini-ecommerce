@@ -1,4 +1,6 @@
 from pydantic import BaseModel
+from app.api.categorie.schemas import ShowCategorieSchema
+from app.api.suppliers.schemas import ShowSuppliersSchema
 
 
 class ProductSchema(BaseModel):
@@ -13,6 +15,8 @@ class ProductSchema(BaseModel):
 
 class ShowProductSchema(ProductSchema):
     id: int
+    categorie: ShowCategorieSchema # --> atribuir um atributo com o mesmo nome do model para exibir no body
+    supplier: ShowSuppliersSchema
     
     class Config:
         orm_mode = True
