@@ -18,4 +18,19 @@ class Supplier(Base):
     __tablename__ = 'suppliers'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(150))
+    name = Column(String(45))
+
+
+class Categorie(Base):
+    __tablename__ = 'categories'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(45))
+
+
+class PaymentMethod(Base):
+    __tablename__ = 'payment_methods'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(45))
+    enabled = Column(Boolean, default=True)

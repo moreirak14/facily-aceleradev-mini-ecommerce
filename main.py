@@ -11,4 +11,3 @@ app = FastAPI(title="E - COMMERCE")
 
 
 app.include_router(router)
-
