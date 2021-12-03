@@ -1,6 +1,6 @@
 from typing import List
 from fastapi import APIRouter, status
-from app.models.models import PaymentMethod, Product
+from app.models.models import PaymentMethod
 from .schemas import PaymentMethodsSchema, ShowPaymentMethodsSchema
 from fastapi.params import Depends
 from app.repositories.payment_method_repository import PaymentMethodRepository
@@ -23,7 +23,7 @@ def index(repository: PaymentMethodRepository = Depends()):
 @router.put('/{id}')
 def update(id: int, payment_method: PaymentMethodsSchema, 
            repository: PaymentMethodRepository = Depends()):
-    repository.update(id, payment_method,dict())
+    repository.update(id, payment_method.dict())
 
 
 @router.get('/{id}', response_model=ShowPaymentMethodsSchema)

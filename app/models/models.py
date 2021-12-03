@@ -1,8 +1,19 @@
 from sqlalchemy import Column
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import ForeignKey
-from sqlalchemy.sql.sqltypes import Boolean, Float, Integer, String
+from sqlalchemy.sql.sqltypes import Boolean, DateTime, Float, Integer, String
 from app.db.db import Base
+
+
+class Coupons(Base):
+    __tablename__ = 'coupons'
+
+    id = Column(Integer, primary_key=True)
+    code = Column(String(10))
+    expire_at = Column(DateTime)
+    limit = Column(Integer)
+    type = Column(String(15))
+    value = Column(Float(10, 2))
 
 
 class PaymentMethod(Base):
