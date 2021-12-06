@@ -29,7 +29,7 @@ class ProductDiscountService:
         """ --> percorre o model de product_discount_repository(PaymentDiscount) filtrando 
         product_id e payment_method_id. """
         mode_method = self.product_discount_repository.filter(
-            {'product_id': discount.product_id, 'payment_methods_id': discount.payment_methods_id})
+            {"product_id": discount.product_id, "payment_methods_id": discount.payment_methods_id})
 
         """ --> se já existir product_id e payment_method_id atribuido em algum
         metodo de desconto, retorna exception. """

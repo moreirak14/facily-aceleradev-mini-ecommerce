@@ -13,7 +13,7 @@ class Customer(Base):
     last_name = Column(String(45))
     phone_number = Column(String(15))
     genre = Column(String(45))
-    document_id = Column(String(45))
+    document_id = Column(String(45), unique=True)
     birth_date = Column(Date)
 
 
