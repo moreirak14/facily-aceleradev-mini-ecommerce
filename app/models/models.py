@@ -5,11 +5,38 @@ from sqlalchemy.sql.sqltypes import Boolean, Date, DateTime, Float, Integer, Str
 from app.db.db import Base
 
 
+class Customer(Base):
+    __tablename__ = 'customers'
+
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String(45))
+    last_name = Column(String(45))
+    phone_number = Column(String(15))
+    genre = Column(String(45))
+    document_id = Column(String(45))
+    birth_date = Column(Date)
+
+
+class Address(Base):
+    __tablename__ = 'addresses'
+
+    id = Column(Integer, primary_key=True)
+    address = Column(String(255))
+    city = Column(String(45))
+    state = Column(String(2))
+    number = Column(String(10))
+    zipcode = Column(String(6))
+    neighbourhood = Column(String(45))
+    primary = Column(Boolean)
+    customer_id = Column(Integer, ForeignKey('customers.id'))
+    customer = relationship(Customer)
+
+
 class Coupons(Base):
     __tablename__ = 'coupons'
 
     id = Column(Integer, primary_key=True)
-    code = Column(String(10))
+    code = Column(String(10), unique=True)
     expire_at = Column(DateTime)
     limit = Column(Integer)
     type = Column(String(15))
@@ -65,28 +92,11 @@ class PaymentDiscount(Base):
     payment_methods = relationship(PaymentMethod)
 
 
-class Customer(Base):
-    __tablename__ = 'customers'
+class User(Base):
+    __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
-    first_name = Column(String(45))
-    last_name = Column(String(45))
-    phone_number = Column(String(15))
-    genre = Column(String(45))
-    document_id = Column(String(45))
-    birth_date = Column(Date)
-
-
-class Address(Base):
-    __tablename__ = 'addresses'
-
-    id = Column(Integer, primary_key=True)
-    address = Column(String(255))
-    city = Column(String(45))
-    state = Column(String(2))
-    number = Column(String(10))
-    zipcode = Column(String(6))
-    neighbourhood = Column(String(45))
-    primary = Column(Boolean)
-    customer_id = Column(Integer, ForeignKey('customers.id'))
-    customer = relationship(Customer)
+    display_name = Column(String(100))
+    email = Column(String(50))
+    role = Column(String(10))
+    password = Column(String(100))
