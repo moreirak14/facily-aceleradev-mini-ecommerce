@@ -5,6 +5,17 @@ from sqlalchemy.sql.sqltypes import Boolean, Date, DateTime, Float, Integer, Str
 from app.db.db import Base
 
 
+class User(Base):
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True)
+    display_name = Column(String(45))
+    email = Column(String(45))
+    phone_number = Column(String(12))
+    role = Column(String(15))
+    password = Column(String(255))   
+
+
 class Customer(Base):
     __tablename__ = 'customers'
 
@@ -15,6 +26,8 @@ class Customer(Base):
     genre = Column(String(45))
     document_id = Column(String(45), unique=True)
     birth_date = Column(Date)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    user = relationship(User)
 
 
 class Address(Base):
@@ -90,14 +103,3 @@ class PaymentDiscount(Base):
     product = relationship(Product)
     payment_methods_id = Column(Integer, ForeignKey('payment_methods.id'))
     payment_methods = relationship(PaymentMethod)
-
-
-class User(Base):
-    __tablename__ = 'users'
-
-    id = Column(Integer, primary_key=True)
-    display_name = Column(String(45))
-    email = Column(String(45))
-    phone_number = Column(String(12))
-    role = Column(String(15))
-    password = Column(String(255))   

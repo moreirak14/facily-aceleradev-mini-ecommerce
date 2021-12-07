@@ -5,9 +5,10 @@ from app.models.models import Address
 from app.repositories.addresses_repository import AddressesRepository
 from app.services.addresses_service import AddressesService
 from app.common.exceptions import CustomersInvalidNone
+from app.services.auth_service import only_admin
 
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(only_admin)]) # --> atribuindo autenticação para produtos
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED)

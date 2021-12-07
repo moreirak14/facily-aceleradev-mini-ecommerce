@@ -9,10 +9,10 @@ class CustomersSchema(BaseModel):
     genre: str
     document_id: str
     birth_date: date
+    user_id: int
 
 
 class ShowCustomersSchema(CustomersSchema):
-    id: int
-
+    
     class Config:
         orm_mode = True

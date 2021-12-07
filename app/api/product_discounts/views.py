@@ -1,5 +1,3 @@
-from os import stat
-from typing import List
 from fastapi import APIRouter, status, Depends, HTTPException
 from .schemas import ProductDiscountsSchema
 from app.repositories.product_discount_repository import PaymentDiscountRepository
@@ -7,9 +5,10 @@ from app.services.product_discount_service import ProductDiscountService
 from app.common.exceptions import (
     PaymentMethodsNotAvailableException, 
     PaymentMethodDiscountAlreadyExistsException)
+from app.services.auth_service import only_admin
 
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(only_admin)]) # --> atribuindo autenticação para produtos
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED)

@@ -4,9 +4,10 @@ from app.repositories.customers_repository import CustomersRepository
 from fastapi.params import Depends
 from app.api.customers.schemas import CustomersSchema, ShowCustomersSchema
 from app.models.models import Customer
+from app.services.auth_service import only_admin
 
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(only_admin)]) # --> atribuindo autenticação para produtos
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED)

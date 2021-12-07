@@ -4,9 +4,10 @@ from app.models.models import PaymentMethod
 from .schemas import PaymentMethodsSchema, ShowPaymentMethodsSchema
 from fastapi.params import Depends
 from app.repositories.payment_method_repository import PaymentMethodRepository
+from app.services.auth_service import only_admin
 
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(only_admin)]) # --> atribuindo autenticação para produtos
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED)

@@ -4,9 +4,10 @@ from .schemas import CategorieSchema, ShowCategorieSchema
 from fastapi.params import Depends
 from app.models.models import Categorie
 from app.repositories.categorie_repository import CategorieRepository
+from app.services.auth_service import only_admin
 
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(only_admin)]) # --> atribuindo autenticação para produtos
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED)

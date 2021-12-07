@@ -4,9 +4,10 @@ from app.repositories.cupons_repository import CouponsRepository
 from app.api.coupons.schemas import CouponsSchema, ShowCouponsSchema, UpdateCoupons
 from app.services.coupons_service import CouponsService
 from app.common.exceptions import CouponsCodeAlreadyExistsException
+from app.services.auth_service import only_admin
 
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(only_admin)]) # --> atribuindo autenticação para produtos
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
