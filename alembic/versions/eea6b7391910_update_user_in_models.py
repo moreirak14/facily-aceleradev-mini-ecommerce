@@ -1,8 +1,8 @@
-"""Update for tables in models.py
+"""Update User in models
 
-Revision ID: cb1025b434b6
+Revision ID: eea6b7391910
 Revises: 
-Create Date: 2021-12-06 14:45:52.017628
+Create Date: 2021-12-07 10:26:34.064839
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'cb1025b434b6'
+revision = 'eea6b7391910'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -41,7 +41,8 @@ def upgrade():
     sa.Column('genre', sa.String(length=45), nullable=True),
     sa.Column('document_id', sa.String(length=45), nullable=True),
     sa.Column('birth_date', sa.Date(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('document_id')
     )
     op.create_table('payment_methods',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -56,10 +57,11 @@ def upgrade():
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('display_name', sa.String(length=100), nullable=True),
-    sa.Column('email', sa.String(length=50), nullable=True),
-    sa.Column('role', sa.String(length=10), nullable=True),
-    sa.Column('password', sa.String(length=100), nullable=True),
+    sa.Column('display_name', sa.String(length=45), nullable=True),
+    sa.Column('email', sa.String(length=45), nullable=True),
+    sa.Column('phone_number', sa.String(length=12), nullable=True),
+    sa.Column('role', sa.String(length=15), nullable=True),
+    sa.Column('password', sa.String(length=255), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('addresses',
