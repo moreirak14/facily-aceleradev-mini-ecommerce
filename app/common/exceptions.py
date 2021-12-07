@@ -1,4 +1,7 @@
 """ --> mensagem de retorno de avaliação de metodos de pagamentos. """
+from sqlalchemy.sql.coercions import ExpressionElementImpl
+
+
 class PaymentMethodsNotAvailableException(Exception):
     def __init__(self):
         self.message = 'This payment method is not available'
@@ -22,4 +25,10 @@ class CouponsCodeAlreadyExistsException(Exception):
 class CouponsExpire(Exception):
     def __init__(self):
         self.message = 'This coupon has an expired date'
+        super().__init__(self.message)
+
+
+class CustomersInvalidNone(Exception):
+    def __init__(self):
+        self.message = 'The address needs a customer, the value cannot be empty'
         super().__init__(self.message)

@@ -24,6 +24,9 @@ class BaseRepository:
     def filter(self, args):
         return self.session.query(self.model).filter_by(**args).all()
 
-    def remove(self, id):
+    def filter_by(self, args):
+        return self.session.query(self.model).filter_by(**args).first()
+
+    def remove(self, id: int):
         self.session.query(self.model).filter_by(id=id).delete()
         self.session.commit()
