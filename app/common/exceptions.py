@@ -32,3 +32,10 @@ class CustomersInvalidNone(Exception):
     def __init__(self):
         self.message = 'The address needs a customer, the value cannot be empty'
         super().__init__(self.message)
+
+
+""" --> mensagem de autenticação de usuario não encontrado """
+class UserAuthentication(Exception):
+    def __init__(self):
+        self.message = 'User not authenticated or not found'
+        super().__init__(self.message)

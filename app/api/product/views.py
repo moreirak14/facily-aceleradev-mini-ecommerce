@@ -4,9 +4,10 @@ from fastapi.params import Depends
 from .schemas import ProductSchema, ShowProductSchema
 from app.models.models import Product
 from app.repositories.product_repository import ProductRepository
+from app.services.auth_service import only_admin
 
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(only_admin)]) # --> atribuindo autenticação para produtos
 
 # --> estrutura padrão para todas as rotas que chamar a router
 @router.post('/', status_code=status.HTTP_201_CREATED)
