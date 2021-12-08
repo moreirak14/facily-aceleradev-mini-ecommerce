@@ -13,6 +13,5 @@ class CustomersSchema(BaseModel):
 
 
 class ShowCustomersSchema(CustomersSchema):
-    
     class Config:
         orm_mode = True

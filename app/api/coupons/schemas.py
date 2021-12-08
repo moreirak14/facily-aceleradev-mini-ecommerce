@@ -4,8 +4,8 @@ from enum import Enum
 
 
 class CouponsType(str, Enum):
-    VALUE = 'value'
-    PERCENTAGE = 'percentage'
+    VALUE = "value"
+    PERCENTAGE = "percentage"
 
 
 class CouponsSchema(BaseModel):
@@ -24,6 +24,8 @@ class ShowCouponsSchema(CouponsSchema):
 
 
 """ --> retornando dois atributos para a função update """
+
+
 class UpdateCoupons(BaseModel):
     expire_at: datetime
     limit: int

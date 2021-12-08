@@ -8,8 +8,7 @@ import bcrypt
 router = APIRouter()
 
 
-@router.post('/')
+@router.post("/")
 def create(user: UsersSchema, repository: UsersRepository = Depends()):
-    user.password = bcrypt.hashpw(user.password.encode('utf8'), 
-                    bcrypt.gensalt())
+    user.password = bcrypt.hashpw(user.password.encode("utf8"), bcrypt.gensalt())
     repository.create(User(**user.dict()))

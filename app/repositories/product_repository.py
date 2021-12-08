@@ -5,6 +5,6 @@ from app.db.db import get_db
 from app.models.models import Product
 
 
-class ProductRepository(BaseRepository): # --> pega o crud de base_repository
+class ProductRepository(BaseRepository):  # --> pega o crud de base_repository
     def __init__(self, session: Session = Depends(get_db)):
         super().__init__(session, Product)

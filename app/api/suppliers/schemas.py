@@ -8,5 +8,5 @@ class SuppliersSchema(BaseModel):
 class ShowSuppliersSchema(SuppliersSchema):
     id: int
 
-    class Config: # exibe um unico id
+    class Config:  # exibe um unico id
         orm_mode = True

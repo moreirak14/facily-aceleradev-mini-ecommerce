@@ -5,8 +5,8 @@ from app.api.payment_methods.schemas import ShowPaymentMethodsSchema
 
 
 class DiscountMode(str, Enum):
-    VALUE = 'value'
-    PERCENTAGE = 'percentage'
+    VALUE = "value"
+    PERCENTAGE = "percentage"
 
 
 class ProductDiscountsSchema(BaseModel):

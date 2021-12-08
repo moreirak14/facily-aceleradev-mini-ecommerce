@@ -8,6 +8,6 @@ class PaymentMethodsSchema(BaseModel):
 
 class ShowPaymentMethodsSchema(PaymentMethodsSchema):
     id: int
-    
+
     class Config:
         orm_mode = True

@@ -7,15 +7,17 @@ from app.services.auth_service import authenticate, get_user
 router = APIRouter()
 
 
-@router.get('/me', response_model=ShowUserAuthenticationSchema)
+@router.get("/me", response_model=ShowUserAuthenticationSchema)
 def index(user: User = Depends(get_user)):
     return user
 
 
-@router.post('/login')
+@router.post("/login")
 def login(token: str = Depends(authenticate)):
     if not token:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail='These credentials are invalid')
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="These credentials are invalid",
+        )
 
-    return {'access_token': token, 'token_type': 'bearer'}
+    return {"access_token": token, "token_type": "bearer"}
