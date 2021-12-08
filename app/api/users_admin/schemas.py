@@ -5,7 +5,7 @@ class AdminUsersSchema(BaseModel):
     display_name: str
     email: str
     phone_number: str
-    role = 'admin'
+    role = "admin"
     password: str
 
 

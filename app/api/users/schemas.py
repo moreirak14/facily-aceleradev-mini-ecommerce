@@ -5,12 +5,8 @@ class UsersSchema(BaseModel):
     display_name: str
     email: str
     phone_number: str
-    role: str
+    role = "customer"
     password: str
-
-
-class ShowUsersSchema(UsersSchema):
-    id: int
 
     class Config:
         orm_mode = True

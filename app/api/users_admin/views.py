@@ -16,9 +16,11 @@ router = APIRouter(
 
 @router.post("/")
 def create(admin_user: AdminUsersSchema, services: UsersAdminService = Depends()):
-    admin_user.password = bcrypt.hashpw(admin_user.password.encode("utf8"), bcrypt.gensalt())
+    admin_user.password = bcrypt.hashpw(
+        admin_user.password.encode("utf8"), bcrypt.gensalt()
+    )
     try:
-        services.create_admin_user(admin_user)
+        services.create_user(admin_user)
     except EmailAdminUserAuthentication as msg:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=msg.message)
 
@@ -29,8 +31,12 @@ def index(repository: UsersRepository = Depends()):
 
 
 @router.put("/{id}")
-def update(id: int, admin_user: AdminUsersSchema, services: UsersAdminService = Depends()):
-    admin_user.password = bcrypt.hashpw(admin_user.password.encode("utf8"), bcrypt.gensalt())
+def update(
+    id: int, admin_user: AdminUsersSchema, services: UsersAdminService = Depends()
+):
+    admin_user.password = bcrypt.hashpw(
+        admin_user.password.encode("utf8"), bcrypt.gensalt()
+    )
     try:
         services.update_admin_user(id, admin_user)
     except EmailAdminUserAuthentication as msg:

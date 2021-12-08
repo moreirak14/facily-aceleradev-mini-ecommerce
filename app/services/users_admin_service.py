@@ -11,11 +11,11 @@ class UsersAdminService:
     def __init__(self, users_repository: UsersRepository = Depends()):
         self.users_repository = users_repository
 
-    def unique_email(self, email: str): 
+    def unique_email(self, email: str):
         if self.users_repository.find_by_email(email):
             raise EmailAdminUserAuthentication()
-    
-    def create_admin_user(self, users_admin: Union[AdminUsersSchema, UsersSchema]):
+
+    def create_user(self, users_admin: Union[AdminUsersSchema, UsersSchema]):
         self.unique_email(users_admin.email)
         self.users_repository.create(User(**users_admin.dict()))
 
