@@ -11,8 +11,7 @@ class AddressesService:
 
     def is_primary(self, addresses: ShowAddressesSchema):
         primary = self.addresses_repository.filter_by(
-            {"primary": addresses.primary, "customer_id": addresses.customer_id}
-        )
+            {"primary": addresses.primary, "customer_id": addresses.customer_id})
 
         if primary:
             self.addresses_repository.update(primary.id, {"primary": False})
