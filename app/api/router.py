@@ -10,6 +10,8 @@ from .customers.views import router as customers_router
 from .auth.views import router as auth_router
 from .users.views import router as users_router
 from .users_admin.views import router as users_admin_router
+from .order.views import router as order_router
+from .catalog.views import router as catalog_router
 
 
 router = APIRouter()
@@ -34,3 +36,5 @@ router.include_router(customers_router, prefix="/customers", tags=["customers"])
 router.include_router(auth_router, prefix="/auth", tags=["auth"])
 router.include_router(users_router, prefix="/users", tags=["users"])
 router.include_router(users_admin_router, prefix="/users_admin", tags=["users_admin"])
+router.include_router(order_router, prefix="/order", tags=["order"])
+router.include_router(catalog_router, prefix="/catalog", tags=["catalog"])

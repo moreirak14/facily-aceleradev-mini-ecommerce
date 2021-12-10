@@ -95,6 +95,7 @@ class Product(Base):
     )  # --> acesso a instancia Categorie via um atributo
     supplier_id = Column(Integer, ForeignKey("suppliers.id"))
     supplier = relationship(Supplier)
+    discounts = relationship("PaymentDiscount")
 
 
 class PaymentDiscount(Base):
@@ -107,3 +108,36 @@ class PaymentDiscount(Base):
     product = relationship(Product)
     payment_methods_id = Column(Integer, ForeignKey("payment_methods.id"))
     payment_methods = relationship(PaymentMethod)
+
+
+class Order(Base):
+    __tablename__ = "orders"
+    id = Column(Integer, primary_key=True)
+    number = Column(String(10))
+    status = Column(String(15))
+    customer_id = Column(Integer, ForeignKey("customers.id"))
+    customer = relationship(Customer)
+    created_at = Column(DateTime)
+    address_id = Column(Integer, ForeignKey("addresses.id"))
+    total_value = Column(Float(10, 2))
+    payment_form_id = Column(Integer)
+    total_discount = Column(Float(10, 2))
+
+
+class OrderStatus(Base):
+    __tablename__ = "order_statuses"
+    id = Column(Integer, primary_key=True)
+    order_id = Column(Integer, ForeignKey("orders.id"))
+    order = relationship(Order)
+    status = Column(String(15))
+    created_at = Column(DateTime)
+
+
+class OrderProducts(Base):
+    __tablename__ = "order_products"
+    id = Column(Integer, primary_key=True)
+    order_id = Column(Integer, ForeignKey("orders.id"))
+    order = relationship(Order)
+    product_id = Column(Integer, ForeignKey("products.id"))
+    product = relationship(Product)
+    quantity = Column(Integer)

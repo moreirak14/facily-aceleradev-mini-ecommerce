@@ -2,7 +2,11 @@ from typing import List
 from fastapi import APIRouter, status
 from app.repositories.customers_repository import CustomersRepository
 from fastapi.params import Depends
-from app.api.customers.schemas import CustomersSchema, ShowCustomersSchema
+from app.api.customers.schemas import (
+    CustomersSchema,
+    ShowCustomersSchema,
+    UpdateCustomersSchema,
+)
 from app.models.models import Customer
 
 
@@ -21,7 +25,9 @@ def index(repository: CustomersRepository = Depends()):
 
 @router.put("/{id}")
 def update(
-    id: int, customers: CustomersSchema, repository: CustomersRepository = Depends()
+    id: int,
+    customers: UpdateCustomersSchema,
+    repository: CustomersRepository = Depends(),
 ):
     repository.update(id, customers.dict())
 

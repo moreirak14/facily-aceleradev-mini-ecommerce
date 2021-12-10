@@ -13,6 +13,14 @@ class CustomersSchema(BaseModel):
     user_id: int
 
 
+class UpdateCustomersSchema(BaseModel):
+    first_name: str
+    last_name: str
+    phone_number: str
+    genre: str
+    birth_date: date
+
+
 class ShowCustomersSchema(CustomersSchema):
     user: UsersSchema
 

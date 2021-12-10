@@ -7,6 +7,9 @@ class BaseRepository:
         self.session = session
         self.model = model
 
+    def query(self):
+        return self.session.query(self.model)
+
     def get_all(self):
         return self.session.query(self.model).all()
 
