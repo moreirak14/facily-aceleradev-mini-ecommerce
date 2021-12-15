@@ -67,14 +67,14 @@ class PaymentMethod(Base):
 class Supplier(Base):
     __tablename__ = "suppliers"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(45))
 
 
 class Categorie(Base):
     __tablename__ = "categories"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(45))
 
 
@@ -88,11 +88,8 @@ class Product(Base):
     image = Column(String(255))
     visible = Column(Boolean, default=True)
     categorie_id = Column(
-        Integer, ForeignKey("categories.id")
-    )  # --> relacionamento com categoria
-    categorie = relationship(
-        Categorie
-    )  # --> acesso a instancia Categorie via um atributo
+        Integer, ForeignKey("categories.id"))  # --> relacionamento com categoria
+    categorie = relationship(Categorie)  # --> acesso a instancia Categorie via um atributo
     supplier_id = Column(Integer, ForeignKey("suppliers.id"))
     supplier = relationship(Supplier)
     discounts = relationship("PaymentDiscount")

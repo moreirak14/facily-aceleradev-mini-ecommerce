@@ -12,7 +12,7 @@ router = APIRouter(
 )  # --> atribuindo autenticação para produtos
 
 # --> estrutura padrão para todas as rotas que chamar a router
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=ShowProductSchema)
 def create(product: ProductSchema, repository: ProductRepository = Depends()):
     repository.create(Product(**product.dict()))
 

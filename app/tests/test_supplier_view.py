@@ -6,6 +6,7 @@ def test_supplier_create(client: TestClient, admin_auth_header):
                            headers=admin_auth_header,
                            json={'name': 'LG'})
     assert response.status_code == 201
+    
     assert response.json()['id'] == 1
 
 

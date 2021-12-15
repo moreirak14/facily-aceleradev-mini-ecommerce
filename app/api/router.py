@@ -18,7 +18,7 @@ router = APIRouter()
 
 
 router.include_router(
-    product_router, prefix="/product", tags=["product"]
+    product_router, prefix="/products", tags=["products"]
 )  # --> prefix adiciona o /product na rota @app.router('')
 router.include_router(
     supplier_router, prefix="/suppliers", tags=["suppliers"]

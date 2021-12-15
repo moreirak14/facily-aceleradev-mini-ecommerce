@@ -15,8 +15,8 @@ class ProductSchema(BaseModel):
 
 class ShowProductSchema(ProductSchema):
     id: int
-    categorie: ShowCategorieSchema  # --> atribuir um atributo com o mesmo nome do model para exibir no body
-    supplier: ShowSuppliersSchema
+    """ categorie: ShowCategorieSchema  # --> atribuir um atributo com o mesmo nome do model para exibir no body
+    supplier: ShowSuppliersSchema """
 
     class Config:
         orm_mode = True

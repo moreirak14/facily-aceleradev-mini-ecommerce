@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
-from app.models.models import Base, User
+from app.models.models import Base, Categorie, Supplier, User
 from app.db.db import get_db
 from fastapi.testclient import TestClient
 from app.app import app
@@ -18,7 +18,7 @@ def db_session():
     Base.metadata.create_all(engine)
     db = Session()
     yield db
-    db.close() 
+    db.close()
 
 
 @pytest.fixture()
@@ -39,6 +39,32 @@ def client(override_get_db):
 """ @pytest.fixture()
 def jwt_token():
     return 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjcxMTMwNDMyfQ.PdOs9oPPI-cQ8RMmYRh0qljiCk4yha9kqbt08sdtQeU' """
+
+
+@pytest.fixture()
+def supplier_factory(db_session):
+    class SupplierFactory(factory.alchemy.SQLAlchemyModelFactory):
+        class Meta:
+            model = Supplier
+            sqlalchemy_session = db_session
+
+        id = factory.Faker('pyint')
+        name = factory.Faker('name')
+
+    return SupplierFactory
+
+
+@pytest.fixture()
+def category_factory(db_session):
+    class CategoryFactory(factory.alchemy.SQLAlchemyModelFactory):
+        class Meta:
+            model = Categorie
+            sqlalchemy_session = db_session
+
+        id = factory.Faker('pyint')
+        name = factory.Faker('name')
+
+    return CategoryFactory
 
 
 @pytest.fixture()
