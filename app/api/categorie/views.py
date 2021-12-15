@@ -12,9 +12,11 @@ router = APIRouter(
 )  # --> atribuindo autenticação para produtos
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=ShowCategorieSchema)
 def create(categorie: CategorieSchema, repository: CategorieRepository = Depends()):
-    repository.create(Categorie(**categorie.dict()))
+    model = Categorie(**categorie.dict())
+    repository.create(model)
+    return model
 
 
 @router.get("/", response_model=List[ShowCategorieSchema])
@@ -26,7 +28,7 @@ def index(repository: CategorieRepository = Depends()):
 def update(
     id: int, categorie: CategorieSchema, repository: CategorieRepository = Depends()
 ):
-    repository.update(id, categorie.dict())
+    repository.update(id, categorie.dict()) 
 
 
 @router.get("/{id}", response_model=ShowCategorieSchema)

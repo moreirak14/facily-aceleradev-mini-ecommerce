@@ -11,8 +11,10 @@ router = APIRouter()
 
 @router.post("/")
 def create(user: UsersSchema, services: UsersAdminService = Depends()):
-    user.password = bcrypt.hashpw(user.password.encode("utf8"), bcrypt.gensalt())
+    user.password = bcrypt.hashpw(
+        user.password.encode("utf8"), bcrypt.gensalt())
     try:
         services.create_user(user)
     except EmailAdminUserAuthentication as msg:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=msg.message)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail=msg.message)

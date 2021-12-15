@@ -16,10 +16,13 @@ class BaseRepository:
     def create(self, model: Base):
         self.session.add(model)
         self.session.commit()
+        self.session.refresh(model)
+        return model
 
     def update(self, id: int, attributes: dict):
         self.session.query(self.model).filter_by(id=id).update(attributes)
         self.session.commit()
+        return self.query().filter_by(id=id).first()
 
     def get_by_id(self, id: int):
         return self.session.query(self.model).filter_by(id=id).first()

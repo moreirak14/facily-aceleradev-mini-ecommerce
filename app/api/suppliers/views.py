@@ -12,9 +12,11 @@ router = APIRouter(
 )  # --> atribuindo autenticação para produtos
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=ShowSuppliersSchema)
 def create(supplier: SuppliersSchema, repository: SupplierRepository = Depends()):
-    repository.create(Supplier(**supplier.dict()))
+    model = Supplier(**supplier.dict())
+    repository.create(model)
+    return model
 
 
 @router.get("/", response_model=List[ShowSuppliersSchema])
