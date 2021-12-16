@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine
-import sqlalchemy
 from sqlalchemy.orm import sessionmaker
-from app.models.models import Base, Categorie, Supplier, User
+from app.models.models import Base, Categorie, Supplier, User, Coupons
 from app.db.db import get_db
 from fastapi.testclient import TestClient
 from app.app import app
@@ -39,6 +38,23 @@ def client(override_get_db):
 """ @pytest.fixture()
 def jwt_token():
     return 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjcxMTMwNDMyfQ.PdOs9oPPI-cQ8RMmYRh0qljiCk4yha9kqbt08sdtQeU' """
+
+
+@pytest.fixture()
+def coupon_factory(db_session):
+    class CouponFactory(factory.alchemy.SQLAlchemyModelFactory):
+        class Meta:
+            model = Coupons
+            sqlalchemy_session = db_session
+
+        id = factory.Faker('pyint')
+        code = None
+        expire_at = None
+        limit = None
+        type = None
+        value = None
+
+    return CouponFactory
 
 
 @pytest.fixture()
