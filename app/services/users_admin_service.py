@@ -17,7 +17,8 @@ class UsersAdminService:
 
     def create_user(self, users_admin: Union[AdminUsersSchema, UsersSchema]):
         self.unique_email(users_admin.email)
-        self.users_repository.create(User(**users_admin.dict()))
+        return self.users_repository.create(User(**users_admin.dict()))
+        
 
     def unique_email_update(self, email: str, id: int):
         query = self.users_repository.find_by_email(email)
@@ -26,4 +27,4 @@ class UsersAdminService:
 
     def update(self, id: int, users_admin: Union[AdminUsersSchema, UsersSchema]):
         self.unique_email_update(users_admin.email, id)
-        self.users_repository.update(id, users_admin.dict())
+        return self.users_repository.update(id, users_admin.dict())

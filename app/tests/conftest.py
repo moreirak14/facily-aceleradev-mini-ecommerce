@@ -93,7 +93,6 @@ def user_factory(db_session):
         id = None
         display_name = factory.Faker('name')
         email = factory.Faker('email')
-        phone_number = None
         role = None
         password = '$2b$12$rPq8ggNxK5FFJKCdmfcdoeXsL2zr1O9vHGRZI/0zGUSskM2XuZkJu'
 

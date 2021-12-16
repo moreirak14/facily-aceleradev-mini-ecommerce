@@ -1,8 +1,8 @@
 from typing import List
 from fastapi import APIRouter, Depends, status, HTTPException
+from starlette.status import HTTP_201_CREATED, HTTP_202_ACCEPTED
 from app.repositories.users_repository import UsersRepository
-from .schemas import AdminUsersSchema, ShowAdminUsersSchema
-from app.api.auth.schemas import ShowAdminUserAuthenticationSchema
+from .schemas import AdminUsersSchema, ShowAdminUserSchema
 from app.services.auth_service import only_admin
 from app.services.users_admin_service import UsersAdminService
 from app.common.exceptions import EmailAdminUserAuthentication
@@ -14,23 +14,23 @@ router = APIRouter(
 )  # --> atribuindo autenticação para produtos
 
 
-@router.post("/")
+@router.post("/", response_model=ShowAdminUserSchema)
 def create(admin_user: AdminUsersSchema, services: UsersAdminService = Depends()):
     admin_user.password = bcrypt.hashpw(
         admin_user.password.encode("utf8"), bcrypt.gensalt()
     )
     try:
-        services.create_user(admin_user)
+        return services.create_user(admin_user)
     except EmailAdminUserAuthentication as msg:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=msg.message)
 
 
-@router.get("/", response_model=List[ShowAdminUserAuthenticationSchema])
+@router.get("/", response_model=List[ShowAdminUserSchema])
 def index(repository: UsersRepository = Depends()):
     return repository.get_all()
 
 
-@router.put("/{id}")
+@router.put("/{id}", response_model=ShowAdminUserSchema)
 def update(
     id: int, admin_user: AdminUsersSchema, services: UsersAdminService = Depends()
 ):
@@ -38,12 +38,12 @@ def update(
         admin_user.password.encode("utf8"), bcrypt.gensalt()
     )
     try:
-        services.update_admin_user(id, admin_user)
+        return services.update(id, admin_user)
     except EmailAdminUserAuthentication as msg:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=msg.message)
 
 
-@router.get("/{id}", response_model=ShowAdminUserAuthenticationSchema)
+@router.get("/{id}", response_model=ShowAdminUserSchema)
 def show(id: int, repository: UsersRepository = Depends()):
     return repository.get_by_id(id)
 

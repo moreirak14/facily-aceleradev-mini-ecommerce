@@ -11,7 +11,6 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     display_name = Column(String(45))
     email = Column(String(45))
-    phone_number = Column(String(12))
     role = Column(String(15))
     password = Column(String(255))
 

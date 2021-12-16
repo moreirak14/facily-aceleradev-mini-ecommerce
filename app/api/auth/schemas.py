@@ -13,7 +13,6 @@ class ShowUserAuthenticationSchema(BaseModel):
 class ShowAdminUserAuthenticationSchema(BaseModel):
     display_name: str
     email: str
-    phone_number: str
     role: str
     id: int
 
