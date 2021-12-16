@@ -10,10 +10,10 @@ from app.common.exceptions import CustomersInvalidNone
 router = APIRouter()
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=ShowAddressesSchema, status_code=status.HTTP_201_CREATED)
 def create(address: AddressesSchema, services: AddressesService = Depends()):
     try:
-        services.create_address(address)
+        return services.create_address(address)
     except CustomersInvalidNone as msg:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail=msg.message
@@ -25,11 +25,11 @@ def index(repository: AddressesRepository = Depends()):
     return repository.get_all()
 
 
-@router.put("/{id}")
+@router.put("/{id}", response_model=ShowAddressesSchema, status_code=status.HTTP_202_ACCEPTED)
 def update(
     id: int, address: AddressesSchema, repository: AddressesRepository = Depends()
 ):
-    repository.update(id, address.dict())
+    return repository.update(id, address.dict())
 
 
 @router.get("/{id}", response_model=ShowAddressesSchema)
@@ -39,4 +39,4 @@ def show(id: int, repository: AddressesRepository = Depends()):
 
 @router.delete("/{id}", status_code=status.HTTP_202_ACCEPTED)
 def remove(id: int, repository: AddressesRepository = Depends()):
-    repository.remove(id)
+    return repository.remove(id)

@@ -11,11 +11,11 @@ class AddressesSchema(BaseModel):
     neighbourhood: str
     primary: bool
     customer_id: int
-
+    
 
 class ShowAddressesSchema(AddressesSchema):
     id: int
-    customer: ShowCustomersSchema
-
+    #customer: ShowCustomersSchema
+    
     class Config:
         orm_mode = True

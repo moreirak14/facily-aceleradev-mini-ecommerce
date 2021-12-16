@@ -2,14 +2,14 @@ from fastapi.testclient import TestClient
 
 
 def test_user_create(client: TestClient, admin_auth_header, user_factory):
-    user_admin = user_factory
+    user_admin = user_factory(role='customer')
 
     response = client.post('/users_admin/',
                            headers=admin_auth_header,
                            json={
                                'display_name': 'teste',
                                'email': 'teste@email.com',
-                               'role': 'admin',
+                               'role': user_admin.role,
                                'password': user_admin.password
                            })
     assert response.status_code == 200
@@ -21,14 +21,14 @@ def test_user_create(client: TestClient, admin_auth_header, user_factory):
 
 
 def test_user_create_with_same_email(client: TestClient, admin_auth_header, user_factory):
-    user_admin = user_factory
+    user_admin = user_factory(role='customer')
 
     response = client.post('/users_admin/',
                            headers=admin_auth_header,
                            json={
                                'display_name': 'teste123',
                                'email': 'teste@email.com',
-                               'role': 'admin',
+                               'role': user_admin.role,
                                'password': user_admin.password
                            })
     assert response.status_code == 200
@@ -38,21 +38,21 @@ def test_user_create_with_same_email(client: TestClient, admin_auth_header, user
                         json={
                             'display_name': 'teste123',
                             'email': 'teste@email.com',
-                            'role': 'admin',
+                            'role': user_admin.role,
                             'password': user_admin.password
                         })
     assert response.status_code == 400
 
 
 def test_user_update(client: TestClient, admin_auth_header, user_factory):
-    user_admin = user_factory
+    user_admin = user_factory(role='customer')
 
     response = client.post('/users_admin/',
                            headers=admin_auth_header,
                            json={
                                'display_name': 'teste',
                                'email': 'teste@email.com',
-                               'role': 'admin',
+                               'role': user_admin.role,
                                'password': user_admin.password
                            })
     assert response.status_code == 200
@@ -63,7 +63,7 @@ def test_user_update(client: TestClient, admin_auth_header, user_factory):
                           json={
                               'display_name': 'teste',
                               'email': 'teste123@email.com',
-                              'role': 'admin',
+                              'role': user_admin.role,
                               'password': user_admin.password
                           })
     assert response.status_code == 200
@@ -80,7 +80,7 @@ def test_user_delete(client: TestClient, admin_auth_header, user_factory):
                            json={
                                'display_name': 'teste',
                                'email': 'teste@email.com',
-                               'role': 'admin',
+                               'role': user_admin.role,
                                'password': user_admin.password
                            })
     assert response.status_code == 200

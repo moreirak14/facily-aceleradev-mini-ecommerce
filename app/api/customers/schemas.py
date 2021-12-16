@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from datetime import date
-from app.api.users.schemas import UsersSchema
+from app.api.users.schemas import ShowAdminUserSchema
 
 
 class CustomersSchema(BaseModel):
@@ -20,9 +20,12 @@ class UpdateCustomersSchema(BaseModel):
     genre: str
     birth_date: date
 
+    class Config:
+        orm_mode = True
+
 
 class ShowCustomersSchema(CustomersSchema):
-    user: UsersSchema
+    user: ShowAdminUserSchema
 
     class Config:
         orm_mode = True
