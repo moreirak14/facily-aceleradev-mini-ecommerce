@@ -44,4 +44,4 @@ class ProductDiscountService:
         if mode_method:
             raise PaymentMethodDiscountAlreadyExistsException()
 
-        self.product_discount_repository.create(PaymentDiscount(**discount.dict()))
+        return self.product_discount_repository.create(PaymentDiscount(**discount.dict()))

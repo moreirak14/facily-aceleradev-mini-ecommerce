@@ -88,7 +88,8 @@ class Product(Base):
     visible = Column(Boolean, default=True)
     categorie_id = Column(
         Integer, ForeignKey("categories.id"))  # --> relacionamento com categoria
-    categorie = relationship(Categorie)  # --> acesso a instancia Categorie via um atributo
+    # --> acesso a instancia Categorie via um atributo
+    categorie = relationship(Categorie)
     supplier_id = Column(Integer, ForeignKey("suppliers.id"))
     supplier = relationship(Supplier)
     discounts = relationship("PaymentDiscount")

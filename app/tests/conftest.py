@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.models.models import Base, Categorie, Supplier, User, Coupons, Customer
+from app.models.models import (
+    Base, Categorie, Supplier, User, Coupons, Customer, Product, PaymentMethod)
 from app.db.db import get_db
 from fastapi.testclient import TestClient
 from app.app import app
@@ -38,6 +39,39 @@ def client(override_get_db):
 """ @pytest.fixture()
 def jwt_token():
     return 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjcxMTMwNDMyfQ.PdOs9oPPI-cQ8RMmYRh0qljiCk4yha9kqbt08sdtQeU' """
+
+
+@pytest.fixture()
+def payment_method_factory(db_session):
+    class PaymentMethodFactory(factory.alchemy.SQLAlchemyModelFactory):
+        class Meta:
+            model = PaymentMethod
+            sqlalchemy_session = db_session
+
+        id = factory.Faker('pyint')
+        name = factory.Faker('name')
+        enabled = None
+
+    return PaymentMethodFactory
+
+
+@pytest.fixture()
+def product_factory(db_session, category_factory, supplier_factory):
+    class ProductFactory(factory.alchemy.SQLAlchemyModelFactory):
+        class Meta:
+            model = Product
+            sqlalchemy_session = db_session
+
+        id = factory.Faker('pyint')
+        description = factory.Faker('word')
+        price = factory.Faker('pyfloat')
+        technical_details = factory.Faker('word')
+        image = factory.Faker('word')
+        visible = None
+        categorie = factory.SubFactory(category_factory)
+        supplier = factory.SubFactory(supplier_factory)
+
+    return ProductFactory
 
 
 @pytest.fixture()
