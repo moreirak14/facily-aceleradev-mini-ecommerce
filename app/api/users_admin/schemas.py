@@ -11,14 +11,7 @@ class AdminUsersSchema(BaseModel):
 class ShowAdminUserSchema(BaseModel):
     display_name: str
     email: str
-    role = "admin"
-    id: int
-
-    class Config:
-        orm_mode = True
-
-
-class ShowAdminUsersSchema(AdminUsersSchema):
+    role: str
     id: int
 
     class Config:

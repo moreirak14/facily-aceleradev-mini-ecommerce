@@ -1,6 +1,11 @@
 from pydantic import BaseModel
 from datetime import date
-from app.api.users.schemas import ShowAdminUserSchema
+
+
+class UserSchema(BaseModel):
+    email: str
+    password: str
+    display_name: str
 
 
 class CustomersSchema(BaseModel):
@@ -10,7 +15,11 @@ class CustomersSchema(BaseModel):
     genre: str
     document_id: str
     birth_date: date
-    user_id: int
+    user: UserSchema
+
+
+class UpdateUserSchema(UserSchema):
+    id: int
 
 
 class UpdateCustomersSchema(BaseModel):
@@ -19,13 +28,14 @@ class UpdateCustomersSchema(BaseModel):
     phone_number: str
     genre: str
     birth_date: date
+    user: UpdateUserSchema
 
     class Config:
         orm_mode = True
 
 
-class ShowCustomersSchema(CustomersSchema):
-    user: ShowAdminUserSchema
+class ShowCustomersSchema(BaseModel):
+    id: int
 
     class Config:
         orm_mode = True

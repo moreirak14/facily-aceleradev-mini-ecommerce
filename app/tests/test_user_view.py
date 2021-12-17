@@ -78,7 +78,7 @@ def test_user_delete(client: TestClient, admin_auth_header, user_factory):
     response = client.post('/users_admin/',
                            headers=admin_auth_header,
                            json={
-                               'display_name': 'teste',
+                               'displaymodels_name': 'teste',
                                'email': 'teste@email.com',
                                'role': user_admin.role,
                                'password': user_admin.password

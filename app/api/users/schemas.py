@@ -4,18 +4,12 @@ from pydantic import BaseModel
 class UsersSchema(BaseModel):
     display_name: str
     email: str
-    role = "customer"
+    role: str
     password: str
 
-    class Config:
-        orm_mode = True
 
-
-class ShowAdminUserSchema(BaseModel):
+class UsersSchemaCustomer(BaseModel):
     display_name: str
     email: str
-    role = "customer"
-    id: int
-
-    class Config:
-        orm_mode = True
+    role:  str
+    password: str

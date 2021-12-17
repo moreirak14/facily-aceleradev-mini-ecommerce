@@ -143,7 +143,7 @@ def user_factory(db_session):
             model = User
             sqlalchemy_session = db_session
 
-        id = None
+        id = factory.Faker('pyint')
         display_name = factory.Faker('name')
         email = factory.Faker('email')
         role = None
