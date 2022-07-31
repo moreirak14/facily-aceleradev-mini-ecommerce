@@ -1,0 +1,34 @@
+version: '3.3'
+
+services:
+  api:
+    build: .
+    container_name: fast_api
+    command: uvicorn main:app --host=0.0.0.0 --port=80 --reload
+    ports:
+      - "8080:80"
+    environment:
+      - APP_NAME=fastapi_docker
+      - DB_USERNAME=fastapi
+      - DB_PASSWORD=123
+      - DB_PORT=5432
+      - DB_NAME=fastapi
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+  
+  db:
+    image: postgres
+    container_name: fast_api_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_USER=fastapi
+      - POSTGRES_DB=fastapi
+
+volumes:
+  postgres_data:
